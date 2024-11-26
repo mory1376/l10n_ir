@@ -1065,10 +1065,10 @@
                 </div>
             </t>
         </template>
-
-        <record id="account.email_template_edi_invoice" model="mail.template">
-            <field name="report_template" ref="l10n_ir.action_invoice_official_with_table"/>
-        </record>
+        <!--- TODO: fix thi shit-->
+<!--        <record id="account.email_template_edi_invoice" model="mail.template">-->
+<!--            <field name="report_template" ref="l10n_ir.action_invoice_official_with_table"/>-->
+<!--        </record>-->
 
     </data>
 </odoo>

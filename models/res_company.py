@@ -29,11 +29,9 @@ class ResCompany(models.Model):
     jalali_fiscalyear_last_day = fields.Integer(
         default=29,
         required=True,
-        track_visibility="onchange",
     )
     jalali_fiscalyear_last_month = fields.Selection(
         selection=JALALI_MONTH_SELECTION,
         default="12",
         required=True,
-        track_visibility="onchange",
     )

@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.company.fields</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="national_id_num" optional="hide" invisible="not is_company"/>
+                    <field name="company_registry" optional="hide" invisible="not is_company"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_list_inherit" model="ir.ui.view">
+        <field name="name">res.partner.list.inherit.company.fields</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="inside">
+                <field name="national_id_num" optional="hide"/>
+                <field name="company_registry" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

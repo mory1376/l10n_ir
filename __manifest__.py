@@ -31,8 +31,15 @@
         'views/account_move_views.xml',  # Custom account move views
         'views/res_config_settings_views.xml',  # Settings views
         'views/res_config.xml',  # Settings views
+        'views/res_partner.xml',  # Settings views
+
+
         'data/res.country.state.csv',
         'data/res.city.csv',
+
+
+        'reports/l10n_ir_reports.xml',
+        'reports/l10n_ir_templates.xml',
 
         'wizard/setup_wizard.xml',
         # QWeb templates (if needed)
