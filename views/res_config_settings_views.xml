@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="res_config_settings_view_form_invoicing" model="ir.ui.view">
+        <field name="name">invoice_paper.res.config.settings.view.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='has_accounting_entries']" position="after">
+                <h2>Invoice Paper</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <div> <field name="invoice_paper" widget="selection"/></div>
+                            <div style="padding-top:3mm;"><button name="print_invoice" string="Print Invoice" type="object" class="btn-primary"/></div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

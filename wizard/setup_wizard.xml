@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="setup_financial_year_opening_form_inherit" model="ir.ui.view">
+            <field name="name">account.financial.year.op.setup.wizard.form.inherit</field>
+            <field name="model">account.financial.year.op</field>
+            <field name="inherit_id" ref="account.setup_financial_year_opening_form"/>
+            <field name="arch" type="xml">
+                <!-- Add is_persian_language field (hidden for logical use) -->
+                <xpath expr="//form" position="inside">
+                    <field name="is_persian_language" invisible="1"/>
+                </xpath>
+
+                <!-- Make Gregorian fiscal year fields invisible if is_persian_language is True -->
+                <xpath expr="//field[@name='fiscalyear_last_month']/.." position="attributes">
+                    <attribute name="invisible">is_persian_language</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fiscalyear_last_day']/.." position="attributes">
+                    <attribute name="invisible">is_persian_language</attribute>
+                </xpath>
+
+                <!-- Add Jalali fiscal year fields -->
+                <xpath expr="//label[@for='fiscalyear_last_month']/.." position="after">
+                    <div invisible="not is_persian_language">
+                        <field name="jalali_fiscalyear_last_day" class="text-center me-2"
+                               style="width: 20% !important;"/>
+                        <field name="jalali_fiscalyear_last_month" class="w-75"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

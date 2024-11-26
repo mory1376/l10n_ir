@@ -1,0 +1,701 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_ir
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-26 11:49+0000\n"
+"PO-Revision-Date: 2021-07-26 11:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/models/account_move.py:0
+#, python-format
+msgid "%s refund/%04d/0000"
+msgstr "%s برگشت/%04d/0000"
+
+#. module: l10n_ir
+#: model:ir.actions.report,print_report_name:l10n_ir.action_invoice_official_with_table_print
+msgid "'Invoice Paper Print - %s' % (object.name)"
+msgstr "'چاپ فاکتور رسمی با جدول - %s' % (object.name)"
+
+#. module: l10n_ir
+#: model:ir.actions.report,print_report_name:l10n_ir.action_invoice_official_with_table
+msgid "'Official Invoice With Table - %s' %(object.name)"
+msgstr "'فاکتور رسمی - %s' %(object.name)"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "1- Customer"
+msgstr "1- مشتری"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "2- Accounting department"
+msgstr "2- حسابداری"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "3- َArchive department"
+msgstr "3- بایگانی"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>Phone number:</b>"
+msgstr "<b>شماره تماس:</b>"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>Registration number:</b>"
+msgstr "<b>شماره ثبت:</b>"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>National ID:</b>"
+msgstr "<b>شماره ملی:</b>"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>National ID/Code:</b>"
+msgstr "<b>شناسه/کد ملی:</b>"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>Sale Invoice</b>"
+msgstr "<b>صورتحساب فروش کالا</b>"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>Customer info</b>"
+msgstr "<b>مشخصات خریدار</b>"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>مشخصات فروشنده</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>مشخصات کالا</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>نام:</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>نشانی کامل:</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>پیش‌فاکتور فروش کالا</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>کد اقتصادی:</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "<b>کد پستی:</b>"
+msgstr ""
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__8
+msgid "Aban"
+msgstr "آبان"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_account_chart_template
+msgid "Account Chart Template"
+msgstr "قالب جدول حساب‌ها"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries
+msgid ""
+"All journal entries dated after the Lock Date will be renumbered. Please, "
+"confirm."
+msgstr ""
+"تمامی سندها حسابداری تایید شده بعد از تاریخ قفل شماره گذاری می‌شوند. لطفا "
+"تایید کنید."
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries_confirmation_form
+msgid "Are you sure you want to renumber the confirmed journal entries?"
+msgstr "شما برای شماره گذاری اسناد حسابداری اقدام کرده‌اید. آیا مطمئن هستید؟"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_sequence_mixin
+msgid "Automatic sequence"
+msgstr "دنباله خودکار"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__9
+msgid "Azar"
+msgstr "آذر"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__11
+msgid "Bahman"
+msgstr "بهمن"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__invoice_paper__blank
+msgid "Blank"
+msgstr "کاغذ سفید"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_report_l10n_ir_invoice_official_with_table_print
+msgid "Blank Invoice Template for Printing"
+msgstr "الگوی فاکتور خام"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_res_company
+msgid "Companies"
+msgstr "شرکت‌ها"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_res_config_settings
+msgid "Config Settings"
+msgstr "تنظیمات پیکربندی"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries_confirmation_form
+msgid "Confirm"
+msgstr "تایید"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "Confirmed by:"
+msgstr "تاییدشده توسط:"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__create_uid
+msgid "Created by"
+msgstr "ایجاد شده توسط"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "Created by:"
+msgstr "ایجاد شده توسط:"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__create_date
+msgid "Created on"
+msgstr "ایجاد شده در"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__10
+msgid "Dey"
+msgstr "دی"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries_confirmation_form
+msgid "Discard"
+msgstr "رها کردن"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_chart_template__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_financial_year_op__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_journal__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_move__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_resequence_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_report_l10n_ir_invoice_official_with_table_print__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:l10n_ir.field_sequence_mixin__display_name
+msgid "Display Name"
+msgstr "نام نمایشی"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__12
+msgid "Esfand"
+msgstr "اسفند"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__1
+msgid "Farvardin"
+msgstr "فروردین"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_financial_year_op__fiscal_calendar_type
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company__fiscal_calendar_type
+msgid "Fiscal Calendar Type"
+msgstr "نوع تقویم مالی"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_financial_year_op__fiscalyear_last_day_jalali
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company__fiscalyear_last_day_jalali
+msgid "Fiscalyear Last Day Jalali"
+msgstr "آخرین روز سال مالی شمسی"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_financial_year_op__fiscalyear_last_month_jalali
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company__fiscalyear_last_month_jalali
+msgid "Fiscalyear Last Month Jalali"
+msgstr "آخرین ماه سال مالی شمسی"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscal_calendar_type__gregorian
+msgid "Gregorian"
+msgstr "میلادی"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_chart_template__id
+#: model:ir.model.fields,field_description:l10n_ir.field_account_financial_year_op__id
+#: model:ir.model.fields,field_description:l10n_ir.field_account_journal__id
+#: model:ir.model.fields,field_description:l10n_ir.field_account_move__id
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__id
+#: model:ir.model.fields,field_description:l10n_ir.field_account_resequence_wizard__id
+#: model:ir.model.fields,field_description:l10n_ir.field_report_l10n_ir_invoice_official_with_table_print__id
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company__id
+#: model:ir.model.fields,field_description:l10n_ir.field_res_config_settings__id
+#: model:ir.model.fields,field_description:l10n_ir.field_sequence_mixin__id
+msgid "ID"
+msgstr "شناسه"
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/wizard/setup_wizards.py:0
+#, python-format
+msgid ""
+"Incorrect fiscal year date: day is out of range for month. Month: %s; Day: "
+"%s"
+msgstr ""
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company__invoice_paper
+#: model:ir.model.fields,field_description:l10n_ir.field_res_config_settings__invoice_paper
+#: model_terms:ir.ui.view,arch_db:l10n_ir.res_config_settings_view_form_invoicing
+msgid "Invoice Paper"
+msgstr "کاغذ فاکتور"
+
+#. module: l10n_ir
+#: model:ir.actions.report,name:l10n_ir.action_invoice_official_with_table_print
+msgid "Invoice Paper Print"
+msgstr "چاپ فاکتور رسمی با جدول"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscal_calendar_type__jalali
+msgid "Jalali"
+msgstr "شمسی"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_account_journal
+msgid "Journal"
+msgstr "تفکیک سند"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_account_move
+msgid "Journal Entry"
+msgstr "سند حسابداری"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_journal__name
+msgid "Journal Name"
+msgstr "نام تفکیک سند"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__3
+msgid "Khordad"
+msgstr "خرداد"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_chart_template____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_account_financial_year_op____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_account_journal____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_account_move____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_account_resequence_wizard____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_report_l10n_ir_invoice_official_with_table_print____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_res_company____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:l10n_ir.field_sequence_mixin____last_update
+msgid "Last Modified on"
+msgstr "آخرین تغییر در"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__write_uid
+msgid "Last Updated by"
+msgstr "آخرین تغییر توسط"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__write_date
+msgid "Last Updated on"
+msgstr "آخرین به‌روزرسانی در"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__7
+msgid "Mehr"
+msgstr "مهر"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__5
+msgid "Mordad"
+msgstr "مرداد"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_view_search
+msgid "Move"
+msgstr "سند حسابداری"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_bank_statement_line__number
+#: model:ir.model.fields,field_description:l10n_ir.field_account_move__number
+#: model:ir.model.fields,field_description:l10n_ir.field_account_payment__number
+msgid "Number"
+msgstr "شماره"
+
+#. module: l10n_ir
+#: model:ir.ui.menu,name:l10n_ir.menu_action_numbering_account_entries_confirmation
+msgid "Numbering Journal Entries"
+msgstr "شماره‌گذاری اسناد حسابداری تایید‌شده"
+
+#. module: l10n_ir
+#: model:ir.actions.report,name:l10n_ir.action_invoice_official_with_table
+msgid "Official Invoice With Table"
+msgstr "فاکتور رسمی"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__invoice_paper__only_series_number_printed
+msgid "Only series number printed"
+msgstr "فقط شماره سریال"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_account_financial_year_op
+msgid "Opening Balance of Financial Year"
+msgstr "تراز افتتاحیه سال مالی"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__2
+msgid "Ordibehesht"
+msgstr "اردیبهشت"
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/models/account_journal.py:0
+#, python-format
+msgid "Outstanding Payments"
+msgstr "پرداخت‌های تهاتر نشده"
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/models/account_journal.py:0
+#, python-format
+msgid "Outstanding Receipts"
+msgstr "دریافت‌های تهاتر نشده"
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/models/chart_template.py:0
+#, python-format
+msgid "Petty cash"
+msgstr "تنخواه گردان"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__invoice_paper__pre-printed
+msgid "Pre-printed"
+msgstr "پیش چاپ‌شده"
+
+#. module: l10n_ir
+#: model:account.account.type,name:l10n_ir.data_account_type_prepayments_received
+msgid "Prepayments from clients"
+msgstr "پیش‌دریافت‌ها"
+
+#. module: l10n_ir
+#: model:account.account.type,name:l10n_ir.data_account_type_prepayments_paid
+msgid "Prepayments to vendors"
+msgstr "پیش‌پرداخت‌ها"
+
+#. module: l10n_ir
+#: model:ir.actions.report,name:l10n_ir.report_account_move
+msgid "Print Accounting Entry"
+msgstr "پرینت سند حسابداری"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.res_config_settings_view_form_invoicing
+msgid "Print Invoice"
+msgstr "دریافت فرمت چاپی فاکتور"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_view_form
+msgid "Reference Number"
+msgstr "شماره مرجع"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_account_resequence_wizard
+msgid "Remake the sequence of Journal Entries."
+msgstr "بازسازی شماره‌ساز سندهای حسابداری"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries
+msgid "Renumbering Journal Entries"
+msgstr "شماره‌گذاری مجدد اسناد حسابداری"
+
+#. module: l10n_ir
+#: model:ir.actions.act_window,name:l10n_ir.action_numbering_account_entries_confirmation
+#: model_terms:ir.ui.view,arch_db:l10n_ir.numbering_account_entries_confirmation_form
+msgid "Renumbering Journal Entries Confirmation"
+msgstr "تایید شماره‌گذاری مجدد اسناد حسابداری"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__6
+msgid "Shahrivar"
+msgstr "شهریور"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_journal__code
+msgid "Short Code"
+msgstr "کد کوتاه"
+
+#. module: l10n_ir
+#: model:ir.model.fields,help:l10n_ir.field_account_journal__code
+msgid ""
+"Shorter name used for display. The journal entries of this journal will also"
+" be named using this prefix by default."
+msgstr ""
+"نام کوتاه‌تر برای نمایش. سندهای حسابداری این تفکیک سند با این پیشوند "
+"نامگذاری می‌شوند."
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_numbering_confirmed_journal__start_renumbering_date
+msgid "Start Renumbering Date"
+msgstr "تاریخ شروع شماره‌گذاری"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "Sum"
+msgstr "جمع"
+
+#. module: l10n_ir
+#: model:ir.model.fields,field_description:l10n_ir.field_account_bank_statement_line__name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_move__name
+#: model:ir.model.fields,field_description:l10n_ir.field_account_payment__name
+msgid "Temporary number"
+msgstr "شماره موقت"
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/models/sequence_mixin.py:0
+#, python-format
+msgid ""
+"The %(date_field)s (%(date)s) doesn't match the %(sequence_field)s (%(sequence)s).\n"
+"You might want to clear the field %(sequence_field)s before proceeding with the change of the date."
+msgstr ""
+"%(date_field)s (%(date)s) با %(sequence_field)s (%(sequence)s) منطبق نیست.\n"
+"احتمالا بخواهید فیلد %(sequence_field)s را قبل از تغییر تاریح پاک کنید."
+
+#. module: l10n_ir
+#: code:addons/l10n_ir/wizard/numbering_confirmed_journals.py:0
+#, python-format
+msgid "There are no posted journal entries after the lock date!"
+msgstr "هیچ سند حسابداری تایید شده‌ای بعد از تاریخ قفل موجود نمی‌باشد!"
+
+#. module: l10n_ir
+#: model:ir.model.fields.selection,name:l10n_ir.selection__res_company__fiscalyear_last_month_jalali__4
+msgid "Tir"
+msgstr "تیر"
+
+#. module: l10n_ir
+#: model:ir.model,name:l10n_ir.model_account_numbering_confirmed_journal
+msgid "To renumber confirmed journal entries according to date order."
+msgstr "برای شماره گذاری اسناد حسابداری تایید شده به ترتیب تاریخ."
+
+#. module: l10n_ir
+#: model:account.tax.group,name:l10n_ir.tax_group_vatg
+msgid "VAT - Government"
+msgstr "مالیات بر ارزش افزوده"
+
+#. module: l10n_ir
+#: model:account.tax.group,name:l10n_ir.tax_group_vatm
+msgid "VAT - Municipality"
+msgstr "عوارض بر ارزش افزوده"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "account code"
+msgstr "کد حساب"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "account move"
+msgstr "سند حسابداری"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "account move number:"
+msgstr "شماره سند:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "credit"
+msgstr "بستانکار"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "date:"
+msgstr "تاریخ سند:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "debit"
+msgstr "بدهکار"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "explanation"
+msgstr "شرح"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "journal id:"
+msgstr "تفکیک سند:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "partial amount"
+msgstr "مبلغ جزء"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "ref number:"
+msgstr "شماره عطف:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "reference:"
+msgstr "شرح سند:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "row"
+msgstr "ردیف"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "state:"
+msgstr "وضعیت:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.account_move_report
+msgid "temporary number:"
+msgstr "شماره موقت:"
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "استان:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "تاریخ:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "تعداد/ مقدار"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "توزیع نسخ:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "جمع مالیات وعوارض (ریال)"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "جمع مبلغ کل بعلاوه جمع مالیات و عوارض (ریال)"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "جمع کل (ریال):"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "ردیف"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "شرايط و نحوه فروش :"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "شــــــرح کالا"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "شماره سریال:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "شهر:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "شهرستان:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "غیر نقدی"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "مبلغ تخفیف (ریال)"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "مبلغ واحد (ریال)"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "مبلغ پس از کسر تخفیف"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "مبلغ کل (ریال)"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "مهر و امضاء خریدار:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "مهر و امضاء فروشنده:"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "نقدی"
+msgstr ""
+
+#. module: l10n_ir
+#: model_terms:ir.ui.view,arch_db:l10n_ir.invoice_official_with_table
+msgid "واحد‌ اندازه گیری"
+msgstr ""

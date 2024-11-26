@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        <template id="account_move_report_assets_common" name="account_move_report_assets_common">-->
+        <!--&lt;!&ndash;            <xpath expr="." position="inside">&ndash;&gt;-->
+        <!--&lt;!&ndash;                <link rel="stylesheet" href="/l10n_ir/static/src/css/account_move_report.css"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </xpath>&ndash;&gt;-->
+        <!--        </template>-->
+        <template id="internal_layout">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <div class="header">
+                <br/>
+                <div class="row">
+                    <div class="col-4 text-start">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="40px"/>
+                    </div>
+                    <div class="col-4 text-center">
+                        <span t-out="company.name"/>
+                    </div>
+                    <div class="col-4 text-end">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <span class="page"/>
+                            </li>
+                            <li class="list-inline-item">/</li>
+                            <li class="list-inline-item">
+                                <span class="topage"/>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-out="0"/>
+            </div>
+        </template>
+        <template id="account_move_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.partner_id.lang"/>
+                    <t t-call="l10n_ir.internal_layout" t-lang="lang">
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <table class="table table-sm o_l10n_ir_table_font_size">
+                                <style>
+                                    p {
+                                    margin: 5px 0; /* Adjust the values as needed */
+                                    padding: 0;
+                                    }
+                                </style>
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" class="table table-sm o_l10n_ir_header_margin_padding">
+                                            <table class="o_l10n_ir_header_table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                        </td>
+                                                        <td colspan="2"
+                                                            class="text-center rounded o_l10n_ir_thead_style">
+                                                            account move
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rounded  o_l10n_ir_thead_style">
+                                                            account move number:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.id"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            state:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.state"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            ref number:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.id"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            date:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.date"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            journal id:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.journal_id.name"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            temporary number:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.name"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            reference:
+                                                        </td>
+                                                        <td colspan="6" class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.ref"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                    <tr class="o_l10n_ir_thead_dark_custom">
+                                        <th class="o_l10n_ir_slender_row rounded">row</th>
+                                        <th class="rounded">account code</th>
+                                        <th class="rounded">explanation</th>
+                                        <th class="rounded">partial amount</th>
+                                        <th class="rounded">debit</th>
+                                        <th class="rounded">credit</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="persian-digit">
+                                    <t t-set="seq" t-value="1"/>
+                                    <t t-foreach="doc.line_ids.mapped('account_id.group_id').sorted(key=lambda r:r.code_prefix_start)"
+                                       t-as="group">
+                                        <t t-set="groups_line_ids"
+                                           t-value="doc.line_ids.filtered(lambda r:r.account_id.group_id==group).sorted(lambda r:r.account_id.code)"/>
+                                        <tr class="o_l10n_ir_striped_lines">
+                                            <td></td>
+                                            <td>
+                                                <span t-field="group.display_name"/>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td></td>
+                                            <td class="persian-digit o_l10n_ir_text_center">
+                                                <t t-out="sum(groups_line_ids.mapped('debit'))"
+                                                   t-options="{'widget':'integer'}"/>
+                                            </td>
+                                            <td class="persian-digit o_l10n_ir_text_center">
+                                                <t t-out="sum(groups_line_ids.mapped('credit'))"
+                                                   t-options="{'widget':'integer'}"/>
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="groups_line_ids.filtered(lambda r:r.debit&gt;0)"
+                                           t-as="line_id">
+                                            <tr class="o_l10n_ir_striped_lines">
+                                                <!--row column-->
+                                                <td>
+                                                    <t t-out="seq"/>
+                                                    <t t-set="seq" t-value="seq+1"/>
+                                                </td>
+                                                <!--account code column-->
+                                                <td>
+                                                    <t t-if="line_id.account_id.group_id">
+                                                        <p t-out="line_id.account_id.group_id.display_name"/>
+                                                    </t>
+                                                    <t t-if="line_id.account_id">
+                                                        <p t-out="line_id.account_id.display_name"/>
+                                                    </t>
+                                                    <t t-if="line_id.partner_id.commercial_partner_id.id">
+                                                        <p t-out="line_id.partner_id.commercial_partner_id.id"/>
+                                                    </t>
+                                                    <t t-foreach="line_id.analytic_distribution"
+                                                       t-as="distribution">
+                                                        <t t-esc="line_id.env['account.analytic.account'].browse(int(distribution))[0].name"/>
+                                                        :
+                                                        <t t-esc="int(line_id.analytic_distribution.get(distribution))"/>
+                                                        % |
+
+                                                    </t>
+                                                </td>
+                                                <!--explanation column-->
+                                                <td class="o_l10n_ir_text_center l10n-ir-rtl persian-digit">
+
+                                                    <t t-if="line_id.account_id.name">
+                                                        <p t-out="line_id.account_id.name"/>
+                                                    </t>
+                                                    <t t-if="line_id.partner_id.commercial_partner_id.display_name">
+                                                        <p t-out="line_id.partner_id.commercial_partner_id.display_name"/>
+                                                    </t>
+                                                    <t t-if="line_id.name">
+                                                        <p t-out="line_id.name"/>
+                                                    </t>
+
+                                                </td>
+                                                <!--partial amount column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-if="line_id.debit==0.0">
+                                                            <t t-out="line_id.credit"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-out="line_id.debit"/>
+                                                        </t>
+                                                    </p>
+                                                </td>
+                                                <!--debit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.debit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                                <!--credit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.credit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-foreach="groups_line_ids.filtered(lambda r:r.credit&gt;0)"
+                                           t-as="line_id">
+                                            <tr class="o_l10n_ir_striped_lines">
+                                                <!--row column-->
+                                                <td>
+                                                    <p>
+                                                        <t t-out="seq"/>
+                                                        <t t-set="seq" t-value="seq+1"/>
+                                                    </p>
+                                                </td>
+                                                <!--account code column-->
+                                                <td>
+                                                    <t t-if="line_id.account_id.group_id.display_name">
+                                                        <p t-out="line_id.account_id.group_id.display_name"/>
+                                                    </t>
+                                                    <t t-if="line_id.account_id.display_name">
+                                                        <p t-out="line_id.account_id.display_name"/>
+                                                    </t>
+                                                    <t t-if="line_id.partner_id.commercial_partner_id.id">
+                                                        <p t-out="line_id.partner_id.commercial_partner_id.id"/>
+                                                    </t>
+                                                </td>
+                                                <!--explanation column-->
+                                                <td class="o_l10n_ir_text_center l10n-ir-rtl persian-digit">
+
+                                                    <t t-if="line_id.account_id.group_id.name">
+                                                        <p t-out="line_id.account_id.group_id.name"/>
+                                                    </t>
+                                                    <t t-if="line_id.account_id.name">
+                                                        <p t-out="line_id.account_id.name"/>
+                                                    </t>
+                                                    <t t-if="line_id.partner_id.commercial_partner_id.display_name">
+                                                        <p t-out="line_id.partner_id.commercial_partner_id.display_name"/>
+                                                    </t>
+                                                    <t t-if="line_id.name">
+                                                        <p t-out="line_id.name"/>
+                                                    </t>
+
+                                                </td>
+                                                <!--partial amount column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-if="line_id.debit==0.0">
+                                                            <t t-out="line_id.credit"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <t t-out="line_id.debit"/>
+                                                        </t>
+                                                    </p>
+                                                </td>
+                                                <!--debit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.debit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                                <!--credit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.credit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Sum</td>
+                                        <th class="persian-digit o_l10n_ir_text_center">
+                                            <t t-out="sum(doc.mapped('line_ids.debit'))"
+                                               t-options="{'widget':'integer'}"/>
+                                        </th>
+                                        <th class="persian-digit o_l10n_ir_text_center">
+                                            <t t-out="sum(doc.mapped('line_ids.credit'))"
+                                               t-options="{'widget':'integer'}"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">Created by:
+                                            <t t-out="doc.create_uid.name"/>
+                                        </th>
+                                        <th colspan="3">Confirmed by:
+                                            <t t-if="doc.state=='posted'">
+                                                <t t-out="doc.write_uid.name"/>
+                                            </t>
+                                            <t t-else="">
+                                            </t>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+
+                    </t>
+                </t>
+            </t>
+        </template>
+        <template id="account_move_report_less_detail">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.partner_id.lang"/>
+                    <t t-call="l10n_ir.internal_layout" t-lang="lang">
+                        <br/>
+                        <br/>
+                        <div class="row">
+                            <table class="table table-sm o_l10n_ir_table_font_size">
+                                <style>
+                                    p {
+                                    margin: 5px 0; /* Adjust the values as needed */
+                                    padding: 0;
+                                    }
+                                </style>
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" class="table table-sm o_l10n_ir_header_margin_padding">
+                                            <table class="o_l10n_ir_header_table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                        </td>
+                                                        <td colspan="2"
+                                                            class="text-center rounded o_l10n_ir_thead_style">
+                                                            account move
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rounded  o_l10n_ir_thead_style">
+                                                            account move number:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.id"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            state:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.state"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            ref number:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.id"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            date:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.date"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            journal id:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.journal_id.name"/>
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            temporary number:
+                                                        </td>
+                                                        <td class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.name"/>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="rounded o_l10n_ir_thead_style">
+                                                            reference:
+                                                        </td>
+                                                        <td colspan="6" class="rounded o_l10n_ir_thead_light">
+                                                            <t t-out="doc.ref"/>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </th>
+                                    </tr>
+                                    <tr class="o_l10n_ir_thead_dark_custom">
+                                        <th class="o_l10n_ir_slender_row rounded">row</th>
+                                        <th class="rounded">account code</th>
+                                        <th class="rounded">explanation</th>
+                                        <th class="rounded">debit</th>
+                                        <th class="rounded">credit</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="persian-digit">
+                                    <t t-set="seq" t-value="1"/>
+                                    <t t-foreach="doc.line_ids.mapped('account_id.group_id').sorted(key=lambda r:r.code_prefix_start)"
+                                       t-as="group">
+                                        <t t-set="groups_line_ids"
+                                           t-value="doc.line_ids.filtered(lambda r:r.account_id.group_id==group).sorted(lambda r:r.account_id.code)"/>
+                                        <tr class="o_l10n_ir_striped_lines">
+                                            <td></td>
+                                            <td>
+                                                <span t-field="group.code_prefix_start"/>
+                                                <span t-field="group.name"/>
+                                            </td>
+                                            <td colspan="3">
+                                                <!-- <strong t-field="group.display_name"/> -->
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="groups_line_ids.filtered(lambda r:r.debit&gt;0)"
+                                           t-as="line_id">
+                                            <tr class="o_l10n_ir_striped_lines">
+                                                <!--row column-->
+                                                <td>
+                                                    <t t-out="seq"/>
+                                                    <t t-set="seq" t-value="seq+1"/>
+                                                </td>
+                                                <!--account code column-->
+                                                <td>
+                                                    <t t-if="line_id.account_id.code">
+                                                        <p t-out="line_id.account_id.code"/>
+                                                    </t>
+                                                    <t t-if="line_id.account_id.name">
+                                                        <p t-out="line_id.account_id.name"/>
+                                                    </t>
+                                                    <t t-if="line_id.partner_id.commercial_partner_id.display_name">
+                                                        <p t-out="line_id.partner_id.commercial_partner_id.display_name"/>
+                                                    </t>
+                                                    <t t-foreach="line_id.analytic_distribution"
+                                                       t-as="distribution">
+                                                        <t t-esc="line_id.env['account.analytic.account'].browse(int(distribution))[0].name"/>
+                                                        :
+                                                        <t t-esc="int(line_id.analytic_distribution.get(distribution))"/>
+                                                        % |
+
+                                                    </t>
+
+
+                                                </td>
+                                                <!--explanation column-->
+                                                <td class="o_l10n_ir_text_center l10n-ir-rtl persian-digit">
+                                                    <p>
+                                                        <t t-out="line_id.name"/>
+                                                    </p>
+                                                </td>
+                                                <!--partial amount column-->
+                                                <!--debit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.debit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                                <!--credit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.credit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-foreach="groups_line_ids.filtered(lambda r:r.credit&gt;0)"
+                                           t-as="line_id">
+                                            <tr class="o_l10n_ir_striped_lines">
+                                                <!--row column-->
+                                                <td>
+                                                    <p>
+                                                        <t t-out="seq"/>
+                                                        <t t-set="seq" t-value="seq+1"/>
+                                                    </p>
+                                                </td>
+                                                <!--account code column-->
+                                                <td>
+                                                    <t t-if="line_id.account_id.code">
+                                                        <p t-out="line_id.account_id.code"/>
+                                                    </t>
+                                                    <t t-if="line_id.account_id.name">
+                                                        <p t-out="line_id.account_id.name"/>
+                                                    </t>
+                                                    <t t-foreach="line_id.analytic_distribution"
+                                                       t-as="distribution">
+                                                        <t t-esc="line_id.env['account.analytic.account'].browse(int(distribution))[0].name"/>
+                                                        :
+                                                        <t t-esc="int(line_id.analytic_distribution.get(distribution))"/>
+                                                        % |
+                                                    </t>
+
+
+                                                </td>
+                                                <!--explanation column-->
+                                                <td class="o_l10n_ir_text_center l10n-ir-rtl persian-digit">
+                                                    <p>
+                                                        <t t-out="line_id.name"/>
+                                                    </p>
+                                                </td>
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.debit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                                <!--credit column-->
+                                                <td class="persian-digit o_l10n_ir_text_center">
+                                                    <p>
+                                                        <t t-out="line_id.credit"
+                                                           t-options="{'widget':'integer'}"/>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+
+                                <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td>sum</td>
+                                        <!--                                        <td>Sum</td>-->
+                                        <th class="persian-digit o_l10n_ir_text_center">
+                                            <t t-out="sum(doc.mapped('line_ids.debit'))"
+                                               t-options="{'widget':'integer'}"/>
+                                        </th>
+                                        <th class="persian-digit o_l10n_ir_text_center">
+                                            <t t-out="sum(doc.mapped('line_ids.credit'))"
+                                               t-options="{'widget':'integer'}"/>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">Created by:
+                                            <t t-out="doc.create_uid.name"/>
+                                        </th>
+                                        <th colspan="3">Confirmed by:
+                                            <t t-if="doc.state=='posted'">
+                                                <t t-out="doc.write_uid.name"/>
+                                            </t>
+                                            <t t-else="">
+                                            </t>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="invoice_official_with_table">
+
+
+            <div style="position:absolute; width:287mm; height:196mm; border: 0.5mm solid black;"/>
+
+            <div style="position:absolute; width:160mm; height:8mm; top:9mm; right:63mm; text-align:center;">
+                <t t-if="doc.state=='draft'">
+                    <b>پیش‌فاکتور فروش کالا</b>
+                </t>
+                <t t-else="">
+                    <b>فاکتور فروش</b>
+                </t>
+
+            </div>
+            <div style="position:absolute; width:27mm; height:6mm; top:12mm; right:227mm; text-align:left; font-size: 12px;">
+                <b>
+                    <div style="padding-top:1.5mm;">شماره سریال:</div>
+                </b>
+            </div>
+            <div style="position:absolute; width:30mm; height:6mm; top:12mm; left:1mm; text-align:center; border: 0.5mm solid black; font-size: 12px;"></div>
+            <div style="position:absolute; width:27mm; height:6mm; top:19mm; right:227mm; text-align:left; font-size: 12px;">
+                <b>
+                    <div style="padding-top:1.5mm;">تاریخ:</div>
+                </b>
+            </div>
+            <div style="position:absolute; width:30mm; height:6mm; top:19mm; left:1mm; text-align:center; border: 0.5mm solid black; font-size: 12px;"></div>
+
+            <div class="main-box" style="top:26mm;">
+                <b>مشخصات فروشنده</b>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:6mm; top:34.4mm; text-align:center;">
+                <div class="row-6mm" style="width:15mm; right:2mm; text-align:right;">
+                    <b>نام:</b>
+                </div>
+                <div class="row-6mm" style="width:61mm; right:17mm;">
+                    <span t-out="doc.company_id.partner_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:25mm; right:78mm;">
+                    <b>کد اقتصادی:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; right:103mm;">
+                    <span t-out="doc.company_id.partner_id.vat"/>
+                </div>
+                <div class="row-6mm" style="width:25mm; right:133mm;">
+                    <b>شناسه ملی:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; right:158mm;">
+                    <span t-out="doc.company_id.partner_id.national_id_num"/>
+                </div>
+                <div class="row-6mm" style="width:20mm; right:188mm;">
+                    <b>شماره ثبت:</b>
+                </div>
+                <div class="row-6mm" style="width:20mm; right:208mm;">
+                    <span t-out="doc.company_id.partner_id.company_registry"/>
+                </div>
+                <div class="row-6mm" style="width:25mm; right:228mm; text-align:left;">
+                    <b>کد پستی:</b>
+                </div>
+                <div class="row-6mm" style="width:35mm; left:0mm;">
+                    <span t-out="doc.company_id.partner_id.zip"/>
+                </div>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:6mm; top:40.4mm;">
+                <div class="row-6mm" style="width:25mm; right:2mm; text-align:right;">
+                    <b>نشانی کامل:</b>
+                </div>
+                <div class="row-6mm" style="width:12mm; right:27mm;">استان:</div>
+                <div class="row-6mm" style="width:16mm; right:39mm;">
+                    <span t-out="doc.company_id.partner_id.state_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:15mm; right:55mm;">شهرستان:</div>
+                <div class="row-6mm" style="width:17mm; right:70mm;">
+                    <span t-out="doc.company_id.partner_id.city_id.county_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:10mm; right:87mm;">شهر:</div>
+                <div class="row-6mm" style="width:17mm; right:97mm;">
+                    <span t-out="doc.company_id.partner_id.city_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:108mm; right:114mm;">
+                    <span t-out="doc.company_id.partner_id.street"/>
+                </div>
+                <div class="row-6mm" style="width:30mm; left:35mm; text-align:left;">
+                    <b>تلفن نماس:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; left:0mm; text-align:center;">
+                    <span class="o_field_phone" t-field="doc.company_id.partner_id.phone"/>
+                </div>
+            </div>
+
+            <div class="main-box" style="top:46.4mm;">
+                <b>مشخصات خریدار</b>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:6mm; top:54.8mm; text-align:center;">
+                <div class="row-6mm" style="width:15mm; right:2mm; text-align:right;">
+                    <b>نام:</b>
+                </div>
+                <div class="row-6mm" style="width:61mm; right:17mm;"></div>
+                <div class="row-6mm" style="width:25mm; right:78mm;">
+                    <b>کد اقتصادی:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; right:103mm;"></div>
+                <div class="row-6mm" style="width:25mm; right:133mm;">
+                    <b>شناسه/کد ملی:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; right:158mm;"></div>
+                <div class="row-6mm" style="width:20mm; right:188mm;">
+                    <b>شماره ثبت:</b>
+                </div>
+                <div class="row-6mm" style="width:20mm; right:208mm;"></div>
+                <div class="row-6mm" style="width:25mm; right:228mm; text-align:left;">
+                    <b>کد پستی:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; left:0mm; text-align:center;"></div>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:6mm; top:60.8mm;">
+                <div class="row-6mm" style="width:25mm; right:2mm;">
+                    <b>نشانی کامل:</b>
+                </div>
+                <div class="row-6mm" style="width:12mm; right:27mm;">استان:</div>
+                <div class="row-6mm" style="width:16mm; right:39mm;"></div>
+                <div class="row-6mm" style="width:15mm; right:55mm;">شهرستان:</div>
+                <div class="row-6mm" style="width:17mm; right:70mm;"></div>
+                <div class="row-6mm" style="width:10mm; right:87mm;">شهر:</div>
+                <div class="row-6mm" style="width:17mm; right:97mm;"></div>
+                <div class="row-6mm" style="width:108mm; right:114mm;"></div>
+                <div class="row-6mm" style="width:30mm; left:35mm; text-align:left;">
+                    <b>شماره تماس:</b>
+                </div>
+                <div class="row-6mm" style="width:30mm; left:0mm; text-align:center;"></div>
+            </div>
+
+            <div class="main-box" style="top:66.8mm; border-bottom:0;">
+                <b>مشخصات کالا</b>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:14mm; top:73.2mm;">
+                <div class="row-14mm" style="width:9mm; right:0mm;">
+                    <div style="padding-top:4mm">ردیف</div>
+                </div>
+                <div class="row-14mm" style="width:66mm; right:9mm;">
+                    <div style="padding-top:4mm">شــــــرح کالا</div>
+                </div>
+                <div class="row-14mm" style="width:15mm; right:75mm;">
+                    <div style="padding-top:2mm">تعداد/ مقدار</div>
+                </div>
+                <div class="row-14mm" style="width:20mm; right:90mm;">
+                    <div style="padding-top:2mm">واحد‌ اندازه گیری</div>
+                </div>
+                <div class="row-14mm" style="width:25mm; right:110mm;">
+                    <div style="padding-top:4mm">مبلغ واحد (ریال)</div>
+                </div>
+                <div class="row-14mm" style="width:33mm; right:135mm;">
+                    <div style="padding-top:4mm">مبلغ کل (ریال)</div>
+                </div>
+                <div class="row-14mm" style="width:33mm; right:168mm;">
+                    <div style="padding-top:4mm">مبلغ تخفیف (ریال)</div>
+                </div>
+                <div class="row-14mm" style="width:26mm; right:201mm;">
+                    <div style="padding-top:2mm">مبلغ پس از کسر تخفیف</div>
+                </div>
+                <div class="row-14mm" style="width:27mm; right:227mm;">
+                    <div style="padding-top:2mm">جمع مالیات وعوارض (ریال)</div>
+                </div>
+                <div class="row-14mm" style="width:33mm; right:254mm; border-left:0;">
+                    <div style="padding-top:2mm">جمع مبلغ کل بعلاوه جمع مالیات و عوارض (ریال)</div>
+                </div>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:58.4mm; top:87.2mm;">
+
+                <div t-foreach="range(0,8)" t-as="i"
+                     t-attf-style="position:absolute; width:287mm; height:7.3mm; top:#{i*7.3}mm;">
+                    <div class="row-7mm" style="width:9mm; right:0mm;">
+                        <div t-out="i+1"/>
+                    </div>
+                    <div class="row-7mm" style="width:66mm; right:9mm;"></div>
+                    <div class="row-7mm" style="width:15mm; right:75mm;"></div>
+                    <div class="row-7mm" style="width:20mm; right:90mm;"></div>
+                    <div class="row-7mm" style="width:25mm; right:110mm;"></div>
+                    <div class="row-7mm" style="width:33mm; right:135mm;"></div>
+                    <div class="row-7mm" style="width:33mm; right:168mm;"></div>
+                    <div class="row-7mm" style="width:26mm; right:201mm;"></div>
+                    <div class="row-7mm" style="width:27mm; right:227mm;"></div>
+                    <div class="row-7mm" style="width:33mm; right:254mm; border-left:0;"></div>
+                </div>
+            </div>
+            <div style="position:absolute; width:287mm; height:7.3mm; top:145.6mm;">
+                <div class="row-7mm" style="width:134.7mm; right:0mm;">
+                    <div style="padding-top:1mm">جمع کل (ریال):</div>
+                </div>
+                <div class="row-7mm" style="width:33.3mm; right:134.7mm;"></div>
+                <div class="row-7mm" style="width:33mm; right:168mm;"></div>
+                <div class="row-7mm" style="width:26mm; right:201mm;"></div>
+                <div class="row-7mm" style="width:27mm; right:227mm;"></div>
+                <div class="row-7mm" style="width:33mm; right:254mm; border-left:0;"></div>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:8mm; top:152.9mm; border-top:0.5mm solid black;">
+                <div class="row-8mm" style="width:45mm; right:2mm;">
+                    <div style="padding-top:2mm">شرایط و نحوه فروش :</div>
+                </div>
+
+                <div class="row-8mm" style="width:30mm; right:60mm;">
+                    <div style="padding-top:2mm;">
+                        نقدی &#x2610;
+                    </div>
+                </div>
+                <div class="row-8mm" style="width:30mm; right:90mm;">
+                    <div style="padding-top:2mm;">
+                        غیر نقدی &#x2610;
+                    </div>
+                </div>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:29mm; top:160.9mm; border-top:0.5mm solid black;">
+                <div class="row-29mm" style="width:143.5mm; right:0mm; border-left: 0.5mm solid black;">
+                    <div style="padding-right:2mm; padding-top:2mm;">مهر و امضاء فروشنده:</div>
+                </div>
+                <div class="row-29mm" style="width:143.5mm; right:143.5mm;">
+                    <div style="padding-right:2mm; padding-top:2mm;">مهر و امضاء خریدار:</div>
+                </div>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:6mm; top:189.9mm; border-top:0.5mm solid black; font-weight: bold;">
+                <div class="row-6mm" style="width:30mm; right:0mm; font-size: 11px;">
+                    <div style="padding-top:1mm; padding-right:2mm">توزیع نسخ:</div>
+                </div>
+                <div class="row-6mm" style="width:50mm; right:30mm; font-size: 11px;">
+                    <div style="padding-top:1mm">1- خریدار</div>
+                </div>
+                <div class="row-6mm" style="width:50mm; right:80mm; font-size: 11px;">
+                    <div style="padding-top:1mm">2- واحد مالی</div>
+                </div>
+                <div class="row-6mm" style="width:50mm; right:130mm; font-size: 11px;">
+                    <div style="padding-top:1mm">3- بایگانی</div>
+                </div>
+            </div>
+
+        </template>
+
+        <template id="invoice_official_without_table">
+            <div t-if="doc.state=='draft'"
+                 t-attf-style="background-image:  url('data:image/png;base64,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'); width:287mm; height:196mm;"/>
+            <div style="position:absolute; width:30mm; height:6mm; top:19mm; left:1mm; text-align:center; font-size: 12px;">
+                <span t-if="doc.company_id.invoice_paper!='pre-printed'" t-field="doc.invoice_date"/>
+            </div>
+            <div style="position:absolute; width:30mm; height:6mm; top:12mm; left:1mm; text-align:center; font-size: 12px;color:red;font-weight:Bold;">
+                <span t-if="doc.company_id.invoice_paper=='blank'" t-out="doc.sequence_without_pre_suffix()"/>
+            </div>
+
+            <div style="position:absolute; width:287mm; height:6mm; top:54.8mm; text-align:center;">
+                <div class="row-6mm" style="width:61mm; right:17mm;">
+                    <span t-field="doc.partner_id"/>
+                </div>
+                <div class="row-6mm" style="width:30mm; right:103mm;">
+                    <span t-out="doc.partner_id.vat"/>
+                </div>
+                <div class="row-6mm" style="width:30mm; right:158mm;">
+                    <span t-out="doc.commercial_partner_id.national_id_num"/>
+                </div>
+                <div class="row-6mm" style="width:20mm; right:208mm;">
+                    <span t-if="doc.partner_id.company_registry" t-out="doc.partner_id.company_registry"/>
+                </div>
+                <div class="row-6mm" style="width:30mm; left:0mm; text-align:center;">
+                    <span t-out="doc.partner_id.zip"/>
+                </div>
+            </div>
+            <div style="position:absolute; width:287mm; height:6mm; top:60.8mm;">
+                <div class="row-6mm" style="width:16mm; right:39mm;">
+                    <span t-out="doc.partner_id.state_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:17mm; right:70mm;">
+                    <span t-out="doc.partner_id.city_id.county_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:17mm; right:97mm;">
+                    <span t-out="doc.partner_id.city_id.name"/>
+                </div>
+                <div class="row-6mm" style="width:108mm; right:114mm;">
+                    <span t-out="doc.partner_id.street"/>
+                </div>
+                <div class="row-6mm" style="width:30mm; left:0mm; text-align:center;">
+                    <span class="o_field_phone" t-field="doc.partner_id.phone"/>
+                </div>
+            </div>
+            <div style="position:absolute; width:287mm; height:58.4mm; top:87.2mm;">
+
+                <t t-set="ft1_counter" t-value="0"/>
+                <t t-set="total_raw" t-value="0"/>
+                <t t-set="total_discount" t-value="0"/>
+                <div t-foreach="doc.invoice_line_ids" t-as="line"
+                     t-attf-style="position:absolute; width:287mm; height:7.3mm; top:#{ft1_counter*7.3}mm;">
+                    <div class="row-7mm"
+                         style="width:66mm; right:9mm; font-family:Kenevist; overflow:hidden; line-height:2em; border:0;">
+                        <span t-out="line.name"/>
+                    </div>
+                    <div class="row-7mm" style="width:15mm; right:75mm; border:0;">
+                        <span t-out="line.quantity"/>
+                    </div>
+                    <div class="row-7mm" style="width:20mm; right:90mm; border:0;">
+                        <span t-out="line.product_uom_id.name"/>
+                    </div>
+                    <div class="row-7mm" style="width:25mm; right:110mm; border:0;">
+                        <span t-out="line.price_unit" t-options='{"widget": "float", "precision": 0}'/>
+
+                    </div>
+                    <div class="row-7mm" style="width:33mm; right:135mm; border:0;">
+                        <span t-out="line.quantity*line.price_unit" t-options='{"widget": "float", "precision": 0}'/>
+                    </div>
+                    <div class="row-7mm" style="width:33mm; right:168mm; border:0;">
+                        <span t-out="line.discount*line.quantity*line.price_unit/100"
+                              t-options='{"widget": "float", "precision": 0}'/>
+                    </div>
+                    <div class="row-7mm" style="width:26mm; right:201mm; border:0;">
+                        <span t-out="line.price_subtotal" t-options='{"widget": "float", "precision": 0}'/>
+                    </div>
+                    <div class="row-7mm" style="width:27mm; right:227mm; border:0;">
+                        <span t-out="line.price_total - line.price_subtotal"
+                              t-options='{"widget": "float", "precision": 0}'/>
+                    </div>
+                    <div class="row-7mm" style="width:33mm; right:254mm; border:0;">
+                        <span t-out="line.price_total" t-options='{"widget": "float", "precision": 0}'/>
+                    </div>
+                    <t t-set="ft1_counter" t-value="ft1_counter + 1"/>
+                    <t t-set="total_raw" t-value="total_raw+line.quantity*line.price_unit"/>
+                    <t t-set="total_discount"
+                       t-value="total_discount+line.discount*line.quantity*line.price_unit/100"/>
+
+
+                </div>
+            </div>
+            <div style="position:absolute; width:287mm; height:7.3mm; top:145.6mm;">
+                <div class="row-7mm" style="width:33.3mm; right:134.7mm; border:0;">
+                    <span t-out="total_raw" t-options='{"widget": "float", "precision": 0}'/>
+                </div>
+                <div class="row-7mm" style="width:33mm; right:168mm; border:0;">
+                    <span t-out="total_discount" t-options='{"widget": "float", "precision": 0}'/>
+                </div>
+                <div class="row-7mm" style="width:26mm; right:201mm; border:0;">
+                    <span t-out="doc.amount_untaxed" t-options='{"widget": "float", "precision": 0}'/>
+                </div>
+                <div class="row-7mm" style="width:27mm; right:227mm; border:0;">
+                    <span t-out="doc.amount_tax" t-options='{"widget": "float", "precision": 0}'/>
+                </div>
+                <div class="row-7mm" style="width:33mm; right:254mm; border:0;">
+                    <span t-out="doc.amount_total" t-options='{"widget": "float", "precision": 0}'/>
+                </div>
+            </div>
+        </template>
+
+        <template id="report_invoice_official_with_table">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div t-attf-class="article"
+                         t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id"
+                         t-att-data-oe-lang="doc and doc.env.context.get('lang')">
+                        <style>
+                            .row-6mm {
+                            position:absolute;
+                            height:6mm;
+                            top:0mm;
+                            font-size: 13px;
+                            }
+                            .row-14mm {
+                            position:absolute;
+                            height:14mm;
+                            top:0mm;
+                            text-align:center;
+                            font-weight: bold;
+                            font-size: 12px;
+                            border-left: 0.5mm solid black;
+                            border-top: 0.5mm solid black;
+                            }
+                            .row-7mm {
+                            position:absolute;
+                            height:7.3mm;
+                            top:0mm;
+                            text-align:center;
+                            font-weight: bold;
+                            font-size: 12px;
+                            border-left: 0.5mm solid black;
+                            border-top: 0.5mm solid black;
+                            }
+                            .row-8mm {
+                            position:absolute;
+                            height:8mm;
+                            top:0mm;
+                            text-align:right;
+                            font-size: 12px;
+                            font-weight: bold;
+                            }
+                            .row-29mm {
+                            position:absolute;
+                            height:29mm;
+                            top:0mm;
+                            text-align:right;
+                            font-size: 12px;
+                            font-weight: bold;
+                            }
+                            .main-box {
+                            position:absolute;
+                            width:287mm;
+                            height:6.4mm;
+                            border-top: 0.5mm solid black;
+                            border-bottom: 0.5mm solid black;
+                            text-align:center;
+                            font-size: 15px;
+                            }
+                        </style>
+                        <div style="position:relative; width:287mm; height:196mm; direction:rtl; font-family:PersianDigits;">
+                            <t t-if="doc.company_id.invoice_paper!='pre-printed'"
+                               t-call="l10n_ir.invoice_official_with_table" t-lang="fa"/>
+                            <t t-call="l10n_ir.invoice_official_without_table" t-lang="fa"/>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="invoice_official_with_table_print">
+            <t t-call="web.html_container">
+                <style>
+                    .row-6mm {
+                    position:absolute;
+                    height:6mm;
+                    top:0mm;
+                    font-size: 13px;
+                    }
+                    .row-14mm {
+                    position:absolute;
+                    height:14mm;
+                    top:0mm;
+                    text-align:center;
+                    font-weight: bold;
+                    font-size: 12px;
+                    border-left: 0.5mm solid black;
+                    border-top: 0.5mm solid black;
+                    }
+                    .row-7mm {
+                    position:absolute;
+                    height:7.3mm;
+                    top:0mm;
+                    text-align:center;
+                    font-weight: bold;
+                    font-size: 12px;
+                    border-left: 0.5mm solid black;
+                    border-top: 0.5mm solid black;
+                    }
+                    .row-8mm {
+                    position:absolute;
+                    height:8mm;
+                    top:0mm;
+                    text-align:right;
+                    font-size: 12px;
+                    font-weight: bold;
+                    }
+                    .row-29mm {
+                    position:absolute;
+                    height:29mm;
+                    top:0mm;
+                    text-align:right;
+                    font-size: 12px;
+                    font-weight: bold;
+                    }
+                    .main-box {
+                    position:absolute;
+                    width:287mm;
+                    height:6.4mm;
+                    border-top: 0.5mm solid black;
+                    border-bottom: 0.5mm solid black;
+                    text-align:center;
+                    font-size: 15px;
+                    }
+                </style>
+                <div style="position:relative; width:287mm; height:196mm; direction:rtl; font-family:PersianDigits;">
+                    <t t-call="l10n_ir.invoice_official_with_table" t-lang="fa">
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <record id="account.email_template_edi_invoice" model="mail.template">
+            <field name="report_template" ref="l10n_ir.action_invoice_official_with_table"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form_inherit_jalali" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.jalali</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <!-- Add is_persian_language field (hidden for logical use) -->
+                <xpath expr="//form" position="inside">
+                    <field name="is_persian_language" invisible="1"/>
+                </xpath>
+
+                <!-- Make Gregorian fiscal year fields invisible if is_persian_language is True -->
+                <xpath expr="//label[@for='fiscalyear_last_month']/.." position="attributes">
+                    <attribute name="invisible">is_persian_language</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fiscalyear_last_month']/.." position="attributes">
+                    <attribute name="invisible">is_persian_language</attribute>
+                </xpath>
+                <xpath expr="//field[@name='fiscalyear_last_day']/.." position="attributes">
+                    <attribute name="invisible">is_persian_language</attribute>
+                </xpath>
+
+                <!-- Add Jalali fields after fiscalyear_last_day -->
+                <xpath expr="//setting[@id='fiscalyear']" position="inside">
+                    <div class="content-group"
+                         invisible="not is_persian_language">
+                        <div class="d-flex mt16 align-items-baseline">
+                            <label for="jalali_fiscalyear_last_month" string="Jalali Last Month"
+                                   class="col-lg-3 o_light_label pe-2 pe-lg-0"/>
+                            <div class="col-lg-9">
+                                <field name="jalali_fiscalyear_last_month" class="pe-2"/>
+                                <field name="jalali_fiscalyear_last_day"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,74 @@
+.o_l10n_ir_text_center {
+    text-align: center;
+    font-family: PersianDigits, sans-serif;
+}
+
+.o_l10n_ir_slender_row {
+    width: 20px;
+    font-family: PersianDigits, sans-serif;
+}
+
+table.o_l10n_ir_table_border, th.o_l10n_ir_table_border, td.o_l10n_ir_table_border {
+    border: 1px solid white;
+    font-family: PersianDigits, sans-serif;
+}
+
+tr.o_l10n_ir_striped-lines:nth-child(even) {
+    background-color: #f4f4f0;
+    font-family: PersianDigits, sans-serif;
+}
+
+tr.o_l10n_ir_striped-lines:nth-child(odd) {
+    background-color: #fbfbf7;
+    font-family: PersianDigits, sans-serif;
+}
+
+.o_l10n_ir_thead_style {
+    background-color: #555c5f;
+    width: 11%;
+    height: 0.5cm;
+    line-height: 0.5cm;
+    color: white;
+    /*font-family: PersianDigits, sans-serif;*/
+}
+
+.o_l10n_ir_thead_dark_custom th {
+    background-color: #555c5f;
+    color: white;
+    font-family: PersianDigits, sans-serif;
+}
+
+.o_l10n_ir_table_font_size {
+    font-size: 3mm;
+    font-family: PersianDigits, sans-serif;
+}
+
+.o_l10n_ir_thead_light {
+    width: 22%;
+    background-color: #f4f4f0;
+    height: 0.5cm;
+    line-height: 0.5cm;
+    font-family: PersianDigits, sans-serif;
+}
+
+.o_l10n_ir_header_table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: PersianDigits, sans-serif;
+}
+
+.o_l10n_ir_header_margin_padding {
+    margin: 0;
+    padding: 0;
+    font-family: PersianDigits, sans-serif;
+}
+#persian-digit{
+    font-family: PersianDigits !important;
+}
+#l10n-ir-rtl{
+    direction: rtl !important;
+}
