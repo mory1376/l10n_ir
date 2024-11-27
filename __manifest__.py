@@ -13,12 +13,11 @@
     'countries': ['ir'],
     # Dependencies: essential modules required for this module to work
     'depends': [
-        'base',  # Core Odoo module
         'account',  # Core accounting functionality
         'account_accountant',  # Advanced accounting features
         'base_import',  # Import support
-        'web',
-        'base_address_extended'  # Web views and actions
+        'base_address_extended',  # Web views and actions
+        'account_reports',  # Web views and actions
     ],
     'auto_install': ['account'],
     # External Python dependencies (ensure these libraries are installed)
