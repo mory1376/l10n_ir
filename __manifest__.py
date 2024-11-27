@@ -25,6 +25,7 @@
     'external_dependencies': {
         'python': ['persiantools', 'jdatetime'],  # Persian-specific tools
     },
+    'post_init_hook': '_account_tax_periodicity_set',
 
     # Data files always loaded
     'data': [

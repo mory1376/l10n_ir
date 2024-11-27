@@ -655,7 +655,7 @@
                 </div>
                 <div class="row-6mm" style="width:15mm; right:55mm;">شهرستان:</div>
                 <div class="row-6mm" style="width:17mm; right:70mm;">
-                    <span t-out="doc.company_id.partner_id.city_id.county_id.name"/>
+                    <span t-out="doc.company_id.partner_id.city_id.name"/>
                 </div>
                 <div class="row-6mm" style="width:10mm; right:87mm;">شهر:</div>
                 <div class="row-6mm" style="width:17mm; right:97mm;">
@@ -857,7 +857,7 @@
                     <span t-out="doc.partner_id.state_id.name"/>
                 </div>
                 <div class="row-6mm" style="width:17mm; right:70mm;">
-                    <span t-out="doc.partner_id.city_id.county_id.name"/>
+                    <span t-out="doc.partner_id.city_id.name"/>
                 </div>
                 <div class="row-6mm" style="width:17mm; right:97mm;">
                     <span t-out="doc.partner_id.city_id.name"/>
