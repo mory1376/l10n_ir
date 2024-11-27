@@ -1,41 +1,42 @@
 import csv
 import io
+import logging
 from persiantools.jdatetime import JalaliDate, JalaliDateTime
 from datetime import datetime, date
-from odoo import _, http
-from odoo.addons.web.controllers.export import CSVExport  # Import the original CSVExport class
+from odoo import http
+from odoo.addons.web.controllers.export import CSVExport
 
-# Preserve the original `__init__` method, if there is one
-original_init = CSVExport.__init__ if hasattr(CSVExport, '__init__') else None
+_logger = logging.getLogger(__name__)
 
+# Preserve original methods
+original_init = getattr(CSVExport, '__init__', None)
+original_from_data = CSVExport.from_data
 
-# Define the patched `__init__` method to set `is_persian`
+# Patched __init__ method
 def patched_init(self, *args, **kwargs):
     if original_init:
         original_init(self, *args, **kwargs)
+    user_lang = getattr(http.request.env.user, 'lang', 'en_US') if http.request else 'en_US'
+    self.is_persian = isinstance(user_lang, str) and user_lang.startswith('fa')
+    _logger.debug(f"CSV Export initialized. Is Persian: {self.is_persian}")
 
-    # Determine if the user's language is Persian
-    user_lang = http.request.env.user.lang if http.request else 'en_US'
-    self.is_persian = user_lang.startswith('fa')
-
-
-# Apply the monkey patch to `__init__`
-CSVExport.__init__ = patched_init
-
-# Preserve the original `from_data` method
-original_from_data = CSVExport.from_data
-
-
-# Define the patched `from_data` method
+# Patched from_data method
 def patched_from_data(self, fields, columns_headers, rows):
-    # Initialize StringIO and CSV writer
+    def convert_date_to_jalali(d):
+        if isinstance(d, date) and not isinstance(d, datetime):
+            return JalaliDate(d).strftime('%Y/%m/%d')
+        elif isinstance(d, datetime):
+            return JalaliDateTime(d).strftime('%Y/%m/%d %H:%M:%S')
+        return d
+
     fp = io.StringIO()
     writer = csv.writer(fp, quoting=csv.QUOTE_MINIMAL)
 
     # Write headers
     writer.writerow(columns_headers)
 
-    # Process each row for Jalali date conversion if needed
+    # Process rows
+    rows = rows or []
     for data in rows:
         row = []
         for d in data:
@@ -43,24 +44,15 @@ def patched_from_data(self, fields, columns_headers, rows):
                 d = ''
             elif isinstance(d, bytes):
                 d = d.decode()
-
-            # Convert dates to Jalali if `is_persian` is True
             if self.is_persian:
-                if isinstance(d, date) and not isinstance(d, datetime):
-                    d = JalaliDate(d).strftime('%Y/%m/%d')
-                elif isinstance(d, datetime):
-                    d = JalaliDateTime(d).strftime('%Y/%m/%d %H:%M:%S')
-
-            # Handle potential formula strings in CSV cells
+                d = convert_date_to_jalali(d)
             if isinstance(d, str) and d.startswith(('=', '-', '+')):
                 d = "'" + d
-
             row.append(d)
-
         writer.writerow(row)
 
     return fp.getvalue()
 
-
-# Monkey-patch the `from_data` method in `CSVExport`
+# Apply patches
+CSVExport.__init__ = patched_init
 CSVExport.from_data = patched_from_data
